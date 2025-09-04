@@ -50,4 +50,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - Planets data from NASA
 - Icons by Font Awesome
-- Built with ❤️ by [Your Name]
+- Built with ❤️ by [ABDUL SABOOR]
