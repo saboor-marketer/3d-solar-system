@@ -1,0 +1,467 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+    perspective: 1000px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Starry Background */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZ3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9IjEiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPjwvc3ZnPg==');
+    opacity: 0.9;
+    animation: twinkle 10s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Solar System Container */
+.solar-system {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 1px;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) perspective(1000px) rotateX(60deg) rotateY(0deg);
+    animation: rotate 60s linear infinite;
+    transform-origin: center center;
+    backface-visibility: visible;
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotateX(60deg) rotateY(0deg); }
+    to { transform: translate(-50%, -50%) rotateX(60deg) rotateY(360deg); }
+}
+
+/* Sun */
+.sun {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    background: radial-gradient(circle at 30% 30%, #fff, #ffd700, #ff8c00, #ff4500);
+    border-radius: 50%;
+    box-shadow: 0 0 100px #ff4500, 0 0 200px #ff8c00, 0 0 300px #ffd700;
+    z-index: 1; /* Lower z-index to stay behind planets when they pass in front */
+    animation: pulse 4s infinite alternate;
+    transform: translate3d(-50%, -50%, 0); /* Center the sun precisely */
+    pointer-events: none; /* Prevent the sun from blocking interactions with planets */
+}
+
+@keyframes pulse {
+    from { box-shadow: 0 0 50px #ff4500, 0 0 100px #ff8c00, 0 0 150px #ffd700; }
+    to { box-shadow: 0 0 70px #ff4500, 0 0 140px #ff8c00, 0 0 200px #ffd700; }
+}
+
+/* Orbits */
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) rotateX(60deg);
+    backface-visibility: visible;
+    will-change: transform;
+    transform-origin: 0 0;
+}
+
+/* Planets */
+.planet {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%) translateZ(1px);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backface-visibility: visible;
+    will-change: transform;
+    z-index: 10;
+}
+
+.planet:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Individual Planet Styles */
+.mercury {
+    width: 20px;
+    height: 20px;
+    background: #a52a2a;
+    margin-left: 80px;
+    box-shadow: 0 0 10px rgba(165, 42, 42, 0.7);
+    transform: translate(-50%, -50%) translateZ(1px);
+}
+
+.venus {
+    width: 30px;
+    height: 30px;
+    background: #deb887;
+    margin-left: 140px;
+    box-shadow: 0 0 15px rgba(222, 184, 135, 0.7);
+}
+
+.earth {
+    width: 32px;
+    height: 32px;
+    background: #4169e1;
+    margin-left: 220px;
+    box-shadow: 0 0 15px rgba(65, 105, 225, 0.7);
+}
+
+.mars {
+    width: 24px;
+    height: 24px;
+    background: #b22222;
+    margin-left: 300px;
+    box-shadow: 0 0 12px rgba(178, 34, 34, 0.7);
+}
+
+.jupiter {
+    width: 70px;
+    height: 70px;
+    background: #d2b48c;
+    margin-left: 400px;
+    box-shadow: 0 0 20px rgba(210, 180, 140, 0.7);
+}
+
+.saturn {
+    width: 60px;
+    height: 60px;
+    background: #f4a460;
+    margin-left: 540px;
+    box-shadow: 0 0 18px rgba(244, 164, 96, 0.7);
+}
+
+.uranus {
+    width: 40px;
+    height: 40px;
+    background: #add8e6;
+    margin-left: 660px;
+    box-shadow: 0 0 15px rgba(173, 216, 230, 0.7);
+}
+
+.neptune {
+    width: 36px;
+    height: 36px;
+    background: #1e90ff;
+    margin-left: 780px;
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
+}
+
+/* Saturn's Rings */
+.saturn-rings {
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    background: rgba(210, 180, 140, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(70deg);
+    box-shadow: 0 0 5px rgba(210, 180, 140, 0.8);
+}
+
+/* Moon */
+.moon-orbit {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    animation: orbit 5s linear infinite;
+}
+
+.moon {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #ccc;
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes orbit {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Planet Info Panel Enhancements */
+.planet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.planet-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.planet-details p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.planet-details i {
+    color: #4cc9f0;
+    width: 20px;
+    text-align: center;
+}
+
+.moons-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.moons-section h5 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.moon-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    margin: 8px 0;
+    background: rgba(30, 40, 60, 0.3);
+    border-radius: 6px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.moon-info:hover {
+    background: rgba(40, 50, 70, 0.5);
+    transform: translateX(5px);
+}
+
+.moon-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(200, 200, 200, 0.8);
+    flex-shrink: 0;
+}
+
+.moon-details {
+    flex-grow: 1;
+}
+
+.moon-name {
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 2px 0;
+}
+
+.moon-stats {
+    font-size: 0.85em;
+    color: #b0b0b0;
+    margin: 0;
+}
+
+/* Controls */
+.controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.controls button {
+    min-width: 140px;
+    margin-bottom: 8px;
+    background: rgba(30, 40, 60, 0.8);
+    border: 1px solid rgba(76, 201, 240, 0.3);
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 6px;
+}
+
+.controls button:hover {
+    background: rgba(76, 201, 240, 0.2);
+    border-color: #4cc9f0;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.controls .form-label {
+    color: #e0e0e0;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.controls .form-range {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(76, 201, 240, 0.2);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 10px 0 15px;
+}
+
+.controls .form-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4cc9f0;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.8);
+}
+
+.controls .form-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4cc9f0;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.8);
+    border: none;
+}
+
+.controls .form-range::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(76, 201, 240, 0.2);
+}
+
+.controls .form-range::-moz-range-track {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(76, 201, 240, 0.2);
+}
+
+/* Info Panel */
+.info-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    width: 320px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #e0e0e0;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.info-panel .card {
+    background: transparent;
+    border: none;
+    margin: 0;
+}
+
+.info-panel .card-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 2px solid #0f3460;
+    padding: 15px 20px;
+}
+
+.info-panel .card-title {
+    color: #4cc9f0;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.info-panel .card-body {
+    padding: 20px;
+    background: rgba(10, 10, 20, 0.8);
+}
+
+.info-panel h4 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.info-panel h5 {
+    color: #4cc9f0;
+    margin: 15px 0 10px;
+    font-size: 1.1em;
+}
+
+.info-panel p {
+    margin: 8px 0;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+.info-panel strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.moon-info {
+    background: rgba(30, 40, 60, 0.5);
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+    border-left: 3px solid #4cc9f0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .solar-system {
+        transform: translate(-50%, -50%) rotateX(50deg) rotateY(0deg) scale(0.8);
+    }
+    
+    .controls {
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+    }
+    
+    .info-panel {
+        width: calc(100% - 40px);
+        left: 20px;
+        bottom: 10px;
+    }
+}
